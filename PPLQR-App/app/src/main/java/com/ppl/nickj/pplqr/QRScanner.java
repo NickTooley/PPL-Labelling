@@ -226,12 +226,10 @@ public class QRScanner extends AppCompatActivity {
             SparseArray<Barcode> barcodes = detections.getDetectedItems();
             if (barcodes.size() != 0) {
                 String message = barcodes.valueAt(0).displayValue;
-                Intent intent = new Intent();
-                intent.putExtra("nada", message);
 
-//                Intent intent = new Intent(getApplicationContext(), MoreInfoActivity.class);
-//                intent.putExtra("ID", foodID);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                intent.putExtra("code", message);
+                startActivity(intent);
 
 
 //                setResult(RESULT_OK, intent);

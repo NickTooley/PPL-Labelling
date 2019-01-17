@@ -25,6 +25,10 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     // use kapt for Kotlin
 
+    // Extensions = ViewModel + LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+
+
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
 
