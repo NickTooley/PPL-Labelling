@@ -3,11 +3,16 @@ package com.ppl.nickj.pplqr;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +20,7 @@ import com.ppl.nickj.pplqr.db.AppDatabase;
 import com.ppl.nickj.pplqr.db.Product;
 import com.ppl.nickj.pplqr.db.dbinit;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class Results extends AppCompatActivity {
@@ -26,7 +32,7 @@ public class Results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        String code = "null";
+        String code = "No Products Found";
 
 
 
@@ -45,6 +51,8 @@ public class Results extends AppCompatActivity {
             }
         });
 
+//        ImageView prodView = (ImageView) findViewById(R.id.productImage);
+
 
 
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
@@ -56,6 +64,7 @@ public class Results extends AppCompatActivity {
 
         if(prod != null){
             tv.setText(prod.title);
+            new DownloadImageTask((ImageView) findViewById(R.id.productImage)).execute("http://www.packagingproducts.co.nz"+prod.imageURL);
         }
 
     }
@@ -93,5 +102,30 @@ public class Results extends AppCompatActivity {
 
         }
 
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
