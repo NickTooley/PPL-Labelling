@@ -125,7 +125,7 @@ public class QRScanner extends AppCompatActivity {
         SurfaceHolder surfHolder = mSurfaceView.getHolder();
         surfHolder.addCallback(new SurfaceHolderSetUp());
         BarcodeDetector.Builder bCodeDectBuilder = new BarcodeDetector.Builder(this);
-        bCodeDectBuilder.setBarcodeFormats(Barcode.QR_CODE);
+        bCodeDectBuilder.setBarcodeFormats(Barcode.DATA_MATRIX);
         mBarcodeDetector = bCodeDectBuilder.build();
         mBarcodeDetector.setProcessor(new BarcodeProcessor());
 

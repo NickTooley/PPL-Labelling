@@ -44,10 +44,12 @@ public class Results extends AppCompatActivity {
         getDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppDatabase db = AppDatabase.getInMemoryDatabase(getApplicationContext());
+//                AppDatabase db = AppDatabase.getInMemoryDatabase(getApplicationContext());
+//
+//                AsyncScraper scraper = new AsyncScraper(Results.this, db);
+//                scraper.execute();
 
-                AsyncScraper scraper = new AsyncScraper(Results.this, db);
-                scraper.execute();
+                finish();
             }
         });
 

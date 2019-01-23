@@ -1,8 +1,11 @@
 package com.ppl.nickj.pplqr;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +14,12 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.ppl.nickj.pplqr.db.AppDatabase;
+import com.ppl.nickj.pplqr.db.Product;
+import com.ppl.nickj.pplqr.db.dbinit;
+
+import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
     public boolean animFinished;
@@ -33,20 +42,21 @@ public class SplashScreen extends AppCompatActivity {
                     1);
 
 
-//            if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "Camera Permission is Required!", Toast.LENGTH_LONG).show();
-//
-//            }
-//        }
+    }
 
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String[] permissions,
+            int[] grantResults
+    ){
         Thread timer = new Thread() {
             @Override
             public void run() {
                 try {
-                    sleep(800);
-                        Intent intent = new Intent(getApplicationContext(), QRScanner.class);
-                        startActivity(intent);
-                        finish();
+                    sleep(500);
+                    Intent intent = new Intent(getApplicationContext(), QRScanner.class);
+                    startActivity(intent);
+                    finish();
                     super.run();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -54,8 +64,9 @@ public class SplashScreen extends AppCompatActivity {
             }
         };
         timer.start();
-
     }
+
+
 
 
 }
