@@ -125,7 +125,7 @@ public class QRScanner extends AppCompatActivity {
         SurfaceHolder surfHolder = mSurfaceView.getHolder();
         surfHolder.addCallback(new SurfaceHolderSetUp());
         BarcodeDetector.Builder bCodeDectBuilder = new BarcodeDetector.Builder(this);
-        bCodeDectBuilder.setBarcodeFormats(Barcode.DATA_MATRIX);
+        bCodeDectBuilder.setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE);
         mBarcodeDetector = bCodeDectBuilder.build();
         mBarcodeDetector.setProcessor(new BarcodeProcessor());
 
@@ -137,7 +137,7 @@ public class QRScanner extends AppCompatActivity {
 
         mCameraSource = new CameraSource
                 .Builder(this, mBarcodeDetector)
-                .setRequestedPreviewSize(height, width)
+                .setRequestedPreviewSize(1280, 720)
                 .setAutoFocusEnabled(true)
                 .build();
     }
@@ -230,10 +230,8 @@ public class QRScanner extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Results.class);
                 intent.putExtra("code", message);
                 startActivity(intent);
+                finish();
 
-
-//                setResult(RESULT_OK, intent);
-//                finish();
             }
         }
     }

@@ -2,6 +2,7 @@ package com.ppl.nickj.pplqr;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,10 @@ public class Results extends AppCompatActivity {
 //
 //                AsyncScraper scraper = new AsyncScraper(Results.this, db);
 //                scraper.execute();
+
+                Intent intent = new Intent(getApplicationContext(), QRScanner.class);
+                startActivity(intent);
+                finish();
 
                 finish();
             }
